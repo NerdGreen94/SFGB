@@ -168,3 +168,54 @@
   color: #555;
   margin-bottom: 15px;
 }
+.card {
+  position: relative;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  text-decoration: none;
+  background-size: cover;
+  background-position: center;
+  transition: transform 0.3s ease;
+}
+
+.card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.4);
+}
+
+.card h2 {
+  position: relative;
+  z-index: 1;
+  font-size: 2rem;
+}
+
+.card:hover {
+  transform: scale(1.05);
+}
+
+/* base */
+.cta {
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+/* desktop */
+@media (min-width: 768px) {
+  .card:hover .cta {
+    opacity: 1;
+  }
+}
+
+/* mobile */
+@media (max-width: 767px) {
+  .cta {
+    opacity: 1;
+    font-size: 0.9rem;
+    margin-top: 8px;
+  }
+}

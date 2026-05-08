@@ -25,7 +25,27 @@
         <div class="collapse navbar-collapse" id="nav">
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item"><a class="nav-link" href="#hero">Home</a></li>
-                <li class="nav-item"><a class="nav-link" href="#corsi">Corsi</a></li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle"
+                       href="#"
+                       id="settoriDropdown"
+                       role="button"
+                       data-bs-toggle="dropdown"
+                       aria-expanded="false">
+                        Settori
+                    </a>
+
+                    <ul class="dropdown-menu" aria-labelledby="settoriDropdown">
+
+                        <li th:each="s : ${settori}">
+                            <a class="dropdown-item"
+                               th:href="${s.url}"
+                               th:text="${s.nome}">
+                            </a>
+                        </li>
+
+                    </ul>
+                </li>
                 <li class="nav-item"><a class="nav-link" href="#news">News</a></li>
                 <li class="nav-item"><a class="nav-link" href="#contatti">Contatti</a></li>
             </ul>
@@ -34,13 +54,21 @@
 </nav>
 
 <!-- HERO -->
-<section id="hero" class="hero">
-    <div class="hero-content">
-        <h1 class="display-3 fw-bold">Sport per tutte le età</h1>
-        <p class="lead">Ginnastica · Nuoto · Atletica</p>
-        <a href="#corsi" class="btn btn-primary btn-lg me-2">Scopri i corsi</a>
-        <a href="#" class="btn btn-outline-light btn-lg">Prova gratuita</a>
-    </div>
+<section class="hero">
+    <a href="/palestra" class="card palestra">
+        <div class="content">
+            <h2>Palestra</h2>
+            <span class="cta">Scopri →</span>
+        </div>
+    </a>
+
+    <a href="/nuoto" class="card nuoto">
+        <h2>Nuoto</h2>
+    </a>
+
+    <a href="/atletica" class="card atletica">
+        <h2>Atletica</h2>
+    </a>
 </section>
 
 <!-- CORSI -->

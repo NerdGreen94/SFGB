@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h2>Gestione Settori</h2>
+
+<form th:action="@{/admin/settori/save}"
+      th:object="${settore}"
+      method="post">
+
+    <input type="text" th:field="*{nome}" placeholder="Nome settore">
+
+    <input type="text" th:field="*{url}" placeholder="URL">
+
+    <button type="submit">Salva</button>
+</form>
+
+<hr>
+
+<table>
+    <tr>
+        <th>Nome</th>
+        <th>URL</th>
+    </tr>
+
+    <tr th:each="s : ${settori}">
+        <td th:text="${s.nome}"></td>
+        <td th:text="${s.url}"></td>
+    </tr>
+</table>
+<span th:text="${#lists.size(settori)}"></span>
+
+<hr>
+
+
+</body>
+</html>

@@ -1,4 +1,4 @@
-package com.sfg.biasca;
+package com.sfg.biasca.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
