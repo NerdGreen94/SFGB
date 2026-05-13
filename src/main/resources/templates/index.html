@@ -39,7 +39,7 @@
 
                         <li th:each="s : ${settori}">
                             <a class="dropdown-item"
-                               th:href="${s.url}"
+                               th:href="@{/settore/{id}(id=${s.id})}"
                                th:text="${s.nome}">
                             </a>
                         </li>
@@ -48,7 +48,7 @@
                 </li>
                 <li class="nav-item"><a class="nav-link" href="#news">News</a></li>
                 <li class="nav-item"><a class="nav-link" href="#contatti">Contatti</a></li>
-                <li class="nav-item"><a class="nav-link" href="../admin/settori.html">Dashboard</a></li>
+                <li class="nav-item"><a class="nav-link" href="admin/settori">Dashboard</a></li>
             </ul>
         </div>
     </div>

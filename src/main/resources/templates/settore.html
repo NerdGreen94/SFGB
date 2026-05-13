@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title th:text="${settore.nome}">Settore</title>
+</head>
+
+<body>
+
+<h1 th:text="${settore.nome}"></h1>
+
+<p>Benvenuto nella pagina del settore:</p>
+
+<p th:text="${settore.nome}"></p>
+
+<!-- esempio: puoi usare anche URL -->
+<a th:href="${settore.url}" target="_blank">Vai al contenuto</a>
+
+</body>
+</html>

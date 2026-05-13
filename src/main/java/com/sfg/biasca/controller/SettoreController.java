@@ -5,6 +5,7 @@ import com.sfg.biasca.repository.SettoreRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 
@@ -25,5 +26,15 @@ public class SettoreController {
         model.addAttribute("settori", settori);
 
         return "form";
+    }
+    @GetMapping("/settore/{id}")
+    public String settore(@PathVariable Long id, Model model) {
+
+        Settore settore = settoreRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Settore non trovato"));
+
+        model.addAttribute("settore", settore);
+
+        return "settore";
     }
 }
