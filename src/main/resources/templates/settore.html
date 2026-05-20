@@ -3,9 +3,52 @@
 
 <head>
     <title th:text="${settore.nome}">Settore</title>
+    <!-- BOOTSTRAP -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/style.css">
+    <script src="/js/script.js"></script>
 </head>
 
-<body>
+<body class="bg-black">
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+    <div class="container">
+        <a class="navbar-brand" href="#">SportClub</a>
+
+        <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#nav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="nav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item"><a class="nav-link" href="#hero">Home</a></li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle"
+                       href="#"
+                       id="settoriDropdown"
+                       role="button"
+                       data-bs-toggle="dropdown"
+                       aria-expanded="false">
+                        Settori
+                    </a>
+
+                    <ul class="dropdown-menu" aria-labelledby="settoriDropdown">
+
+                        <li th:each="s : ${settori}">
+                            <a class="dropdown-item"
+                               th:href="@{/settore/{id}(id=${s.id})}"
+                               th:text="${s.nome}">
+                            </a>
+                        </li>
+
+                    </ul>
+                </li>
+                <li class="nav-item"><a class="nav-link" href="#news">News</a></li>
+                <li class="nav-item"><a class="nav-link" href="#contatti">Contatti</a></li>
+                <li class="nav-item"><a class="nav-link" href="admin/settori">Dashboard</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
 
 <h1 th:text="${settore.nome}"></h1>
 
@@ -15,6 +58,44 @@
 
 <!-- esempio: puoi usare anche URL -->
 <a th:href="${settore.url}" target="_blank">Vai al contenuto</a>
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+    <div class="container">
+        <a class="navbar-brand" href="#">SportClub</a>
 
+        <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#nav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="nav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item"><a class="nav-link" href="#hero">Home</a></li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle"
+                       href="#"
+                       id="settoriDropdown"
+                       role="button"
+                       data-bs-toggle="dropdown"
+                       aria-expanded="false">
+                        Settori
+                    </a>
+
+                    <ul class="dropdown-menu" aria-labelledby="settoriDropdown">
+
+                        <li th:each="s : ${settori}">
+                            <a class="dropdown-item"
+                               th:href="@{/settore/{id}(id=${s.id})}"
+                               th:text="${s.nome}">
+                            </a>
+                        </li>
+
+                    </ul>
+                </li>
+                <li class="nav-item"><a class="nav-link" href="#news">News</a></li>
+                <li class="nav-item"><a class="nav-link" href="#contatti">Contatti</a></li>
+                <li class="nav-item"><a class="nav-link" href="admin/settori">Dashboard</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
 </body>
 </html>

@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-
 import java.util.List;
 
 @Entity
@@ -19,6 +18,6 @@ public class Settore {
     private String nome;
     private String url;
 
-   // @ManyToMany(mappedBy = "settori")
-    //private List<Utente> utenti;
+    @OneToMany(mappedBy = "settore", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Corso> corsi;
 }

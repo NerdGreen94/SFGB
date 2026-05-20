@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<nav th:fragment="navbar" class="navbar navbar-expand-lg navbar-dark fixed-top">
+    <div class="container">
+        <a class="navbar-brand" th:href="@{/}">
+            <img th:src="@{/img/logo_sfg.png}" alt="SFG Biasca" height="48">
+        </a>
+
+        <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#nav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="nav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item"><a class="nav-link" th:href="@{/}">Home</a></li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle"
+                       href="#"
+                       id="settoriDropdown"
+                       role="button"
+                       data-bs-toggle="dropdown"
+                       aria-expanded="false">
+                        Settori
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="settoriDropdown">
+                        <li>
+                            <a class="dropdown-item fw-bold" th:href="@{/settori}">Tutti i settori</a>
+                        </li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li th:each="s : ${settori}">
+                            <a class="dropdown-item"
+                               th:href="@{/settore/{id}(id=${s.id})}"
+                               th:text="${s.nome}">
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item"><a class="nav-link" th:href="@{/#news}">News</a></li>
+                <li class="nav-item"><a class="nav-link" th:href="@{/#contatti}">Contatti</a></li>
+                <li class="nav-item"><a class="nav-link" th:href="@{/admin/settori}">Dashboard</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+</body>
+</html>

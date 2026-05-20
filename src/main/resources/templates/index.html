@@ -1,236 +1,103 @@
 <!DOCTYPE html>
-<html lang="it">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+<html lang="it"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
 
-    <!-- BOOTSTRAP -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="/css/style.css">
-    <script src="/js/script.js"></script>
+<div layout:fragment="content">
 
+    <!-- HERO -->
+    <section class="hero" id="hero">
+        <div class="hero-panels">
 
-</head>
-<body>
+            <!-- PALESTRA -->
+            <a class="hero-panel" th:href="@{/settori}">
+                <div class="hero-bg" style="background-image: url('/img/hero/palestra.webp')"></div>
+                <div class="hero-overlay"></div>
+                <div class="hero-content">
+                    <span class="hero-tag">Scopri</span>
+                    <h2 class="hero-title">Ginnastica</h2>
+                    <div class="hero-line"></div>
+                    <p class="hero-sub">Ritmica · Artistica · Acrobatica</p>
+                </div>
+            </a>
 
-<!-- NAVBAR -->
-<nav class="navbar navbar-expand-lg navbar-dark fixed-top">
-    <div class="container">
-        <a class="navbar-brand" href="#">SportClub</a>
+            <!-- STADIO -->
+            <a class="hero-panel hero-panel--center" th:href="@{/settori}">
+                <div class="hero-bg" style="background-image: url('/img/hero/stadio.webp')"></div>
+                <div class="hero-overlay"></div>
+                <div class="hero-content">
+                    <span class="hero-tag">Scopri</span>
+                    <h2 class="hero-title">Atletica</h2>
+                    <div class="hero-line"></div>
+                    <p class="hero-sub">Corsa · Salto · Lancio</p>
+                </div>
+                <div class="hero-badge">
+                    <img th:src="@{/img/logo_sfg.png}" src="/img/logo_sfg.png" alt="SFG Biasca">
+                </div>
+            </a>
 
-        <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#nav">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+            <!-- PISCINA -->
+            <a class="hero-panel" th:href="@{/settori}">
+                <div class="hero-bg" style="background-image: url('/img/hero/piscina.webp')"></div>
+                <div class="hero-overlay"></div>
+                <div class="hero-content">
+                    <span class="hero-tag">Scopri</span>
+                    <h2 class="hero-title">Nuoto</h2>
+                    <div class="hero-line"></div>
+                    <p class="hero-sub">Stile libero · Dorso · Rana</p>
+                </div>
+            </a>
 
-        <div class="collapse navbar-collapse" id="nav">
-            <ul class="navbar-nav ms-auto">
-                <li class="nav-item"><a class="nav-link" href="#hero">Home</a></li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle"
-                       href="#"
-                       id="settoriDropdown"
-                       role="button"
-                       data-bs-toggle="dropdown"
-                       aria-expanded="false">
-                        Settori
-                    </a>
+        </div>
+    </section>
 
-                    <ul class="dropdown-menu" aria-labelledby="settoriDropdown">
+    <!-- CORSI -->
+    <section id="corsi">
+        <card th:each="s : ${settori}">
+            <a class="dropdown-item"
+               th:href="@{/settore/{id}(id=${s.id})}"
+               th:text="${s.nome}">
+            </a>
+        </card>
+    </section>
 
-                        <li th:each="s : ${settori}">
-                            <a class="dropdown-item"
-                               th:href="@{/settore/{id}(id=${s.id})}"
-                               th:text="${s.nome}">
-                            </a>
-                        </li>
-
-                    </ul>
-                </li>
-                <li class="nav-item"><a class="nav-link" href="#news">News</a></li>
-                <li class="nav-item"><a class="nav-link" href="#contatti">Contatti</a></li>
-                <li class="nav-item"><a class="nav-link" href="admin/settori">Dashboard</a></li>
-            </ul>
-        </div>
-    </div>
-</nav>
-
-<!-- HERO -->
-<section class="hero">
-    <a href="/palestra" class="card palestra">
-        <div class="content">
-            <h2>Palestra</h2>
-            <span class="cta">Scopri →</span>
-        </div>
-    </a>
-
-    <a href="/nuoto" class="card nuoto">
-        <h2>Nuoto</h2>
-    </a>
-
-    <a href="/atletica" class="card atletica">
-        <h2>Atletica</h2>
-    </a>
-</section>
-
-<!-- CORSI -->
-<section id="corsi">
-    <div class="card">
-        <div class="card-image" style="background-image: url('https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b');">
-            <div class="card-title">Ginnastica Base</div>
-        </div>
-        <div class="card-body">
-            <div class="card-info">6–12 anni · Livello Base</div>
-            <a href="#" class="button">Scopri</a>
-        </div>
-    </div>
-    <div class="card">
-        <div class="card-image" style="background-image: url('https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b');">
-            <div class="card-title">Ginnastica Base</div>
-        </div>
-        <div class="card-body">
-            <div class="card-info">6–12 anni · Livello Base</div>
-            <a href="#" class="button">Scopri</a>
-        </div>
-    </div>
-    <div class="card">
-        <div class="card-image" style="background-image: url('https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b');">
-            <div class="card-title">Ginnastica Base</div>
-        </div>
-        <div class="card-body">
-            <div class="card-info">6–12 anni · Livello Base</div>
-            <a href="#" class="button">Scopri</a>
-        </div>
-    </div>
-    <div class="card">
-        <div class="card-image" style="background-image: url('https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b');">
-            <div class="card-title">Ginnastica Base</div>
-        </div>
-        <div class="card-body">
-            <div class="card-info">6–12 anni · Livello Base</div>
-            <a href="#" class="button">Scopri</a>
-        </div>
-    </div>
-    <div class="card">
-        <div class="card-image" style="background-image: url('https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b');">
-            <div class="card-title">Ginnastica Base</div>
-        </div>
-        <div class="card-body">
-            <div class="card-info">6–12 anni · Livello Base</div>
-            <a href="#" class="button">Scopri</a>
-        </div>
-    </div>
-    <div class="card">
-        <div class="card-image" style="background-image: url('https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b');">
-            <div class="card-title">Ginnastica Base</div>
-        </div>
-        <div class="card-body">
-            <div class="card-info">6–12 anni · Livello Base</div>
-            <a href="#" class="button">Scopri</a>
-        </div>
-    </div>
-    <div class="card">
-        <div class="card-image" style="background-image: url('https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b');">
-            <div class="card-title">Ginnastica Base</div>
-        </div>
-        <div class="card-body">
-            <div class="card-info">6–12 anni · Livello Base</div>
-            <a href="#" class="button">Scopri</a>
-        </div>
-    </div>
-    <div class="card">
-        <div class="card-image" style="background-image: url('https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b');">
-            <div class="card-title">Ginnastica Base</div>
-        </div>
-        <div class="card-body">
-            <div class="card-info">6–12 anni · Livello Base</div>
-            <a href="#" class="button">Scopri</a>
-        </div>
-    </div>
-    <div class="card">
-        <div class="card-image" style="background-image: url('https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b');">
-            <div class="card-title">Ginnastica Base</div>
-        </div>
-        <div class="card-body">
-            <div class="card-info">6–12 anni · Livello Base</div>
-            <a href="#" class="button">Scopri</a>
-        </div>
-    </div>
-    <div class="card">
-        <div class="card-image" style="background-image: url('https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b');">
-            <div class="card-title">Ginnastica Base</div>
-        </div>
-        <div class="card-body">
-            <div class="card-info">6–12 anni · Livello Base</div>
-            <a href="#" class="button">Scopri</a>
-        </div>
-    </div>
-    <div class="card">
-        <div class="card-image" style="background-image: url('https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b');">
-            <div class="card-title">Ginnastica Base</div>
-        </div>
-        <div class="card-body">
-            <div class="card-info">6–12 anni · Livello Base</div>
-            <a href="#" class="button">Scopri</a>
-        </div>
-    </div>
-    <div class="card">
-        <div class="card-image" style="background-image: url('https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b');">
-            <div class="card-title">Ginnastica Base</div>
-        </div>
-        <div class="card-body">
-            <div class="card-info">6–12 anni · Livello Base</div>
-            <a href="#" class="button">Scopri</a>
-        </div>
-    </div>
-</section>
-
-<!-- NEWS -->
-<section id="news" class="container-fluid py-5">
-    <h2 class="text-center mb-4">News & Aggiornamenti</h2>
-    <div class="row g-4">
-
-        <!-- EVENTO -->
-        <div class="col-md-4">
-            <div class="news-card p-3 h-100">
-                <h3 class="news-title">Evento Speciale</h3>
-                <p class="news-text">Scopri il nostro evento dedicato ai giovani atleti.</p>
-                <a href="/eventi" class="btn btn-primary">Vai all’evento</a>
+    <!-- NEWS -->
+    <section id="news" class="container-fluid py-5">
+        <h2 class="text-center mb-4">News &amp; Aggiornamenti</h2>
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="news-card p-3 h-100">
+                    <h3 class="news-title">Evento Speciale</h3>
+                    <p class="news-text">Scopri il nostro evento dedicato ai giovani atleti.</p>
+                    <a th:href="@{/eventi}" class="btn btn-primary">Vai all'evento</a>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="news-card p-3 h-100">
+                    <h3 class="news-title">Prossima Gara</h3>
+                    <p class="news-text">La gara di ginnastica si terrà il 12 Aprile.</p>
+                    <a th:href="@{/gare}" class="btn btn-primary">Dettagli gara</a>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="news-card p-3 h-100">
+                    <h3 class="news-title">Ultima News</h3>
+                    <p class="news-text">Aggiornamenti sugli orari dei corsi estivi.</p>
+                    <a th:href="@{/news}" class="btn btn-primary">Leggi news</a>
+                </div>
             </div>
         </div>
+    </section>
 
-        <!-- GARA -->
-        <div class="col-md-4">
-            <div class="news-card p-3 h-100">
-                <h3 class="news-title">Prossima Gara</h3>
-                <p class="news-text">La gara di ginnastica si terrà il 12 Aprile.</p>
-                <a href="/gare" class="btn btn-primary">Dettagli gara</a>
-            </div>
+    <!-- CONTATTI -->
+    <section id="contatti">
+        <div class="container text-center">
+            <h2>Contatti</h2>
+            <p>Email · Telefono · Mappa</p>
         </div>
+    </section>
 
-        <!-- NEWS -->
-        <div class="col-md-4">
-            <div class="news-card p-3 h-100">
-                <h3 class="news-title">Ultima News</h3>
-                <p class="news-text">Aggiornamenti sugli orari dei corsi estivi.</p>
-                <a href="/news" class="btn btn-primary">Leggi news</a>
-            </div>
-        </div>
+</div>
 
-    </div>
-</section>
-
-<!-- CONTATTI -->
-<section id="contatti">
-    <div class="container text-center">
-        <h2>Contatti</h2>
-        <p>Email · Telefono · Mappa</p>
-    </div>
-</section>
-
-<!-- SCRIPT -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-
-
-
-</body>
 </html>

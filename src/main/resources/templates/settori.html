@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="it" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Settori - SportClub</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700&family=Barlow:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+        --red:    #D0211C;
+        --red-light: #F5E6E6;
+        --yellow: #F5C518;
+        --yellow-dark: #B8940E;
+        --blue:   #1A4F9C;
+        --blue-light: #E6EEF8;
+        --dark:   #111827;
+        --gray:   #6B7280;
+        --light:  #F9F8F5;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+        background: var(--light);
+        color: var(--dark);
+        font-family: 'Barlow', sans-serif;
+    }
+
+    .navbar {
+        background: linear-gradient(90deg, #ffffff 260px, var(--dark) 260px);
+        padding: 0.75rem 0;
+        border-bottom: 1px solid #e0e0e0;
+    }
+    .navbar-brand {
+        display: flex;
+        align-items: center;
+    }
+    .navbar-brand img {
+        height: 48px;
+        width: auto;
+    }
+    .nav-link {
+        color: rgba(255,255,255,0.8) !important;
+        font-size: 0.82rem;
+        font-weight: 500;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        padding: 0.5rem 0.9rem !important;
+        transition: color 0.2s;
+    }
+    .nav-link:hover, .nav-link.active { color: var(--yellow) !important; }
+    /* Su mobile torna tutto scuro */
+    @media (max-width: 991px) {
+        .navbar { background: var(--dark); border-bottom: none; }
+    }
+    .dropdown-menu {
+        background: var(--dark);
+        border: none;
+        border-top: 2px solid var(--yellow);
+        border-radius: 0 0 4px 4px;
+    }
+    .dropdown-item {
+        color: rgba(255,255,255,0.75);
+        font-size: 0.85rem;
+        padding: 0.5rem 1.25rem;
+        transition: background 0.15s;
+    }
+    .dropdown-item:hover { background: rgba(255,255,255,0.08); color: #fff; }
+    .dropdown-divider { border-color: rgba(255,255,255,0.1); }
+
+    .page-header {
+        background: var(--blue);
+        padding: 100px 0 40px;
+        position: relative;
+        overflow: hidden;
+    }
+    .page-header::before {
+        content: '';
+        position: absolute;
+        bottom: 0; left: 0; right: 0;
+        height: 4px;
+        background: linear-gradient(90deg, var(--red) 33%, var(--yellow) 33% 66%, var(--blue) 66%);
+    }
+    .page-header h1 {
+        font-family: 'Barlow Condensed', sans-serif;
+        font-size: clamp(2.5rem, 6vw, 4rem);
+        font-weight: 700;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        color: #fff;
+        line-height: 1;
+    }
+    .page-header h1 span { color: var(--yellow); }
+    .breadcrumb-line {
+        font-size: 0.78rem;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        color: rgba(255,255,255,0.5);
+        margin-bottom: 0.75rem;
+    }
+    .breadcrumb-line a { color: rgba(255,255,255,0.5); text-decoration: none; }
+    .breadcrumb-line a:hover { color: var(--yellow); }
+
+    .settori-section { padding: 3rem 0 5rem; }
+
+    .settore-card {
+        display: block;
+        text-decoration: none;
+        border-radius: 6px;
+        overflow: hidden;
+        background: #fff;
+        border: 1.5px solid #E5E7EB;
+        transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+        height: 100%;
+    }
+    .settore-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 12px 32px rgba(0,0,0,0.12);
+        border-color: var(--blue);
+    }
+
+    .card-img-wrap {
+        position: relative;
+        aspect-ratio: 16/10;
+        overflow: hidden;
+        background: var(--blue-light);
+    }
+    .card-img-wrap img {
+        width: 100%; height: 100%;
+        object-fit: cover;
+        transition: transform 0.5s ease;
+    }
+    .settore-card:hover .card-img-wrap img { transform: scale(1.06); }
+
+    .img-placeholder {
+        width: 100%; height: 100%;
+        background: var(--blue-light);
+        display: flex; align-items: center; justify-content: center;
+    }
+    .img-placeholder svg { color: var(--blue); opacity: 0.3; }
+
+    .card-ribbon {
+        position: absolute;
+        top: 0; left: 0;
+        width: 4px; height: 100%;
+        z-index: 1;
+    }
+    .ribbon-0 { background: var(--red); }
+    .ribbon-1 { background: var(--yellow); }
+    .ribbon-2 { background: var(--blue); }
+
+    .card-body-inner {
+        padding: 1.1rem 1.25rem 1.25rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0.5rem;
+    }
+    .card-body-inner h3 {
+        font-family: 'Barlow Condensed', sans-serif;
+        font-size: 1.25rem;
+        font-weight: 700;
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+        color: var(--dark);
+        margin: 0;
+        transition: color 0.2s;
+    }
+    .settore-card:hover .card-body-inner h3 { color: var(--blue); }
+
+    .card-arrow {
+        width: 28px; height: 28px;
+        border-radius: 50%;
+        background: var(--blue-light);
+        display: flex; align-items: center; justify-content: center;
+        flex-shrink: 0;
+        transition: background 0.2s, transform 0.2s;
+    }
+    .card-arrow svg { color: var(--blue); }
+    .settore-card:hover .card-arrow {
+        background: var(--blue);
+        transform: translateX(2px);
+    }
+    .settore-card:hover .card-arrow svg { color: #fff; }
+
+    .empty-state {
+        text-align: center;
+        padding: 80px 20px;
+        color: var(--gray);
+    }
+    .empty-state h3 {
+        font-family: 'Barlow Condensed', sans-serif;
+        font-size: 1.8rem;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        color: #D1D5DB;
+    }
+
+    @keyframes fadeUp {
+        from { opacity: 0; transform: translateY(20px); }
+        to   { opacity: 1; transform: translateY(0); }
+    }
+    .settore-col { animation: fadeUp 0.4s ease both; }
+    .settore-col:nth-child(1) { animation-delay: 0.05s; }
+    .settore-col:nth-child(2) { animation-delay: 0.10s; }
+    .settore-col:nth-child(3) { animation-delay: 0.15s; }
+    .settore-col:nth-child(4) { animation-delay: 0.20s; }
+    .settore-col:nth-child(5) { animation-delay: 0.25s; }
+    .settore-col:nth-child(6) { animation-delay: 0.30s; }
+
+    footer {
+        background: var(--dark);
+        color: rgba(255,255,255,0.4);
+        text-align: center;
+        padding: 2rem 0;
+        font-size: 0.8rem;
+        letter-spacing: 1px;
+    }
+    .footer-stripe {
+        height: 4px;
+        background: linear-gradient(90deg, var(--red) 33%, var(--yellow) 33% 66%, var(--blue) 66%);
+    }
+  </style>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg fixed-top">
+  <div class="container">
+    <a class="navbar-brand" th:href="@{/}">
+      <img th:src="@{/img/logo_sfg.jpg}" src="/img/logo_sfg.jpg" alt="SFG Biasca">
+    </a>
+    <button class="navbar-toggler border-secondary" data-bs-toggle="collapse" data-bs-target="#nav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="nav">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item"><a class="nav-link" th:href="@{/}">Home</a></li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle active" href="#"
+             id="settoriDropdown" role="button"
+             data-bs-toggle="dropdown" aria-expanded="false">
+            Settori
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="settoriDropdown">
+            <li><a class="dropdown-item fw-bold" th:href="@{/settori}">Tutti i settori</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li th:each="s : ${settori}">
+              <a class="dropdown-item"
+                 th:href="@{/settore/{id}(id=${s.id})}"
+                 th:text="${s.nome}"></a>
+            </li>
+          </ul>
+        </li>
+        <li class="nav-item"><a class="nav-link" th:href="@{/#news}">News</a></li>
+        <li class="nav-item"><a class="nav-link" th:href="@{/#contatti}">Contatti</a></li>
+        <li class="nav-item"><a class="nav-link" th:href="@{/admin/settori}">Dashboard</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<section class="page-header">
+  <div class="container">
+    <p class="breadcrumb-line">
+      <a th:href="@{/}">Home</a> &nbsp;/&nbsp; Settori
+    </p>
+    <h1>I nostri <span>Settori</span></h1>
+  </div>
+</section>
+
+<section class="settori-section">
+  <div class="container">
+
+    <div class="empty-state" th:if="${#lists.isEmpty(settori)}">
+      <h3>Nessun settore disponibile</h3>
+      <p style="margin-top:0.5rem;">I settori verranno pubblicati a breve.</p>
+    </div>
+
+    <div class="row g-4" th:unless="${#lists.isEmpty(settori)}">
+      <div class="col-12 col-sm-6 col-lg-4 settore-col"
+           th:each="s, iterStat : ${settori}">
+
+        <a class="settore-card"
+           th:href="@{/settore/{id}(id=${s.id})}">
+
+          <div class="card-img-wrap">
+            <div class="card-ribbon"
+                 th:classappend="'ribbon-' + ${iterStat.index % 3}"></div>
+
+            <img th:if="${s.url != null and !#strings.isEmpty(s.url)}"
+                 th:src="${s.url}"
+                 th:alt="${s.nome}">
+
+            <div class="img-placeholder" th:unless="${s.url != null and !#strings.isEmpty(s.url)}">
+              <svg width="48" height="48" viewBox="0 0 24 24" fill="none"
+                   stroke="currentColor" stroke-width="1.2">
+                <rect x="3" y="3" width="18" height="18" rx="2"/>
+                <circle cx="8.5" cy="8.5" r="1.5"/>
+                <polyline points="21 15 16 10 5 21"/>
+              </svg>
+            </div>
+          </div>
+
+          <div class="card-body-inner">
+            <h3 th:text="${s.nome}">Nome Settore</h3>
+            <div class="card-arrow">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                   stroke="currentColor" stroke-width="2.5">
+                <line x1="5" y1="12" x2="19" y2="12"/>
+                <polyline points="12 5 19 12 12 19"/>
+              </svg>
+            </div>
+          </div>
+
+        </a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<div class="footer-stripe"></div>
+<footer>
+  &copy; 2025 SportClub &mdash; Tutti i diritti riservati
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

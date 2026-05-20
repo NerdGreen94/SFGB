@@ -16,9 +16,18 @@ public class HomeController {
 
     @GetMapping("/")
     public String home(Model model) {
-
-        model.addAttribute("settori", repo.findAll());
-
+        model.addAttribute("settori", repo.findAllByOrderByNomeAsc());
         return "index";
+    }
+
+    @GetMapping("/settori")
+    public String settori(Model model) {
+        model.addAttribute("settori", repo.findAllByOrderByNomeAsc());
+        return "settori";
+    }
+
+    @GetMapping("/login")
+    public String login() {
+        return "login";
     }
 }
